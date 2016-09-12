@@ -9,7 +9,7 @@ def input_students
   # while the name is not empty, repeat this code:
   while !name.empty? do
     # add the student hash to the array
-    students << {name: name, cohort: :november} 
+    students << {name: name, cohort: :november, hobbies: "being evil", gender: "prefer not to say"} 
     students.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
     puts "Now we have #{students.count} #{plural_or_single}"
     # get another name from the user
@@ -54,7 +54,7 @@ def print_without_each(arr)
   until n == arr.length
     student = arr[n]
     # puts "#{arr.index[element]} #{element}"
-    puts "#{n + 1}.#{student[:name]} (#{student[:cohort]} cohort)"
+    puts "#{n + 1}.#{student[:name]} (#{student[:cohort]} cohort) hobby: #{student[:hobbies]}"
     n += 1
   end
 end
