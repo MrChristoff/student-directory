@@ -5,7 +5,7 @@ def input_students
   # creates an empty array
   students = []
   # gets the first students name
-  name = gets.chomp
+  name = gets[0...-1]
   # while the name is not empty, repeat this code:
   while !name.empty? do
     # add the student hash to the array
@@ -13,7 +13,7 @@ def input_students
     students.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
     puts "Now we have #{students.count} #{plural_or_single}"
     # get another name from the user
-    name = gets.chomp
+    name = gets[0...-1]
   end
   # return the array of students
   students
@@ -33,27 +33,26 @@ def print(students)
 end
 
 
-def print_students_begining_with(students)
+def print_students_begining_with(students) # only print students whos names begin with "D" or "d"
   students = students.each_with_index do |student, index|
-  	if (student[:name])[0] == "D" || (student[:name])[0] == "d"# only print students whos names begin with "D" or "d"
+  	if (student[:name])[0] == "D" || (student[:name])[0] == "d"
   		puts "#{index + 1}.#{student[:name]} (#{student[:cohort]} cohort)"
   		end
   	end
 end
 
-def print_students_with_names_less_than(students)
+def print_students_with_names_less_than(students) # only print students who's names are shorter than 12 characters
   students = students.each_with_index do |student, index|
-  	if (student[:name]).length < 12 # only print students who's names are shorter than 12 characters
+  	if (student[:name]).length < 12 
   		puts "#{index + 1}.#{student[:name]} (#{student[:cohort]} cohort)"
   		end
   	end
 end
 
-def print_without_each(arr)
+def print_without_each(arr) # print without using the 'each' method, and use loop instead
   n = 0
   until n == arr.length
     student = arr[n]
-    # puts "#{arr.index[element]} #{element}"
     puts "#{n + 1}.#{student[:name]} (#{student[:cohort]} cohort) hobby: #{student[:hobbies]}".center(100)
     n += 1
   end
@@ -69,3 +68,4 @@ students = input_students
 print_header
 print_without_each(students)
 print_footer(students)
+
