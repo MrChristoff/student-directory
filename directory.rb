@@ -10,7 +10,8 @@ def input_students
   while !name.empty? do
     # add the student hash to the array
     students << {name: name, cohort: :november} 
-    puts "Now we have #{students.count} students"
+    students.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
+    puts "Now we have #{students.count} #{plural_or_single}"
     # get another name from the user
     name = gets.chomp
   end
@@ -25,11 +26,11 @@ def print_header
 end
 
 
-# def print(students)
-#   students = students.each_with_index do |student, index|
-#      puts "#{index + 1}.#{student[:name]} (#{student[:cohort]} cohort)"
-#   end
-# end
+def print(students)
+  students = students.each_with_index do |student, index|
+      puts "#{index + 1}.#{student[:name]} (#{student[:cohort]} cohort)"
+  end
+end
 
 
 # def print(students)
@@ -40,16 +41,17 @@ end
 #   	end
 # end
 
-def print(students)
-  students = students.each_with_index do |student, index|
-  	if (student[:name]).length < 12 # only print students who's names are shorter than 12 characters
-  		puts "#{index + 1}.#{student[:name]} (#{student[:cohort]} cohort)"
-  		end
-  	end
-end
+# def print(students)
+#   students = students.each_with_index do |student, index|
+#   	if (student[:name]).length < 12 # only print students who's names are shorter than 12 characters
+#   		puts "#{index + 1}.#{student[:name]} (#{student[:cohort]} cohort)"
+#   		end
+#   	end
+# end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students "
+	names.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
+  puts "Overall, we have #{names.count} great #{plural_or_single} "
 end
 
 # nothing happens until we call the mothods
@@ -57,4 +59,3 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
-
