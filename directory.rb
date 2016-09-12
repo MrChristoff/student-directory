@@ -1,5 +1,5 @@
 
-def input_students
+def input_students_non_iteractive
   puts "Please enter the name of the students"
   puts "To finish, just hit return twice"
   # creates an empty array
@@ -9,11 +9,36 @@ def input_students
   # while the name is not empty, repeat this code:
   while !name.empty? do
     # add the student hash to the array
+    student_template = 
     students << {name: name, cohort: :november, hobbies: "being evil", gender: "prefer not to say"} 
     students.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
     puts "Now we have #{students.count} #{plural_or_single}"
     # get another name from the user
     name = gets[0...-1]
+  end
+  # return the array of students
+  students
+end
+
+def input_students
+  puts "Please enter the details of the student(s)"
+  continue = true
+  students = []
+  while continue == true do
+    # add the student hash to the array
+    student_template = {name: "To be confirmed", cohort: :November, hobbie: "To be confirmed", gender: "To be confirmed"} 
+    student_template.each do |key, value| # itterates the 'template' hash assigning the new value to the key selected
+      puts "Please enter a #{key}"
+      new_value = gets.chomp.capitalize.to_sym
+      student_template[key] = new_value if new_value != :""
+    end
+
+    students << student_template
+    students.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
+    puts "Now we have #{students.count} #{plural_or_single}"
+    puts "continue to add students? Y/N"
+    gets.chomp.upcase == "Y" ? continue = true : continue = false
+
   end
   # return the array of students
   students
@@ -53,7 +78,7 @@ def print_without_each(arr) # print without using the 'each' method, and use loo
   n = 0
   until n == arr.length
     student = arr[n]
-    puts "#{n + 1}.#{student[:name]} (#{student[:cohort]} cohort) hobby: #{student[:hobbies]}".center(100)
+    puts "#{n + 1}.#{student[:name]} (#{student[:cohort]} cohort) Hobby: #{student[:hobbies]} Gender: #{student[:gender]}".center(100)
     n += 1
   end
 end
@@ -61,6 +86,8 @@ end
 def print_footer(names)
 	names.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
   puts "Overall, we have #{names.count} great #{plural_or_single} ".center(100)
+  puts "******************".center(100)
+  puts ""
 end
 
 # nothing happens until we call the mothods
