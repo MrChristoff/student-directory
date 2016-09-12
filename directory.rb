@@ -25,10 +25,19 @@ def print_header
 end
 
 
+# def print(students)
+#   students = students.each_with_index do |student, index|
+#      puts "#{index + 1}.#{student[:name]} (#{student[:cohort]} cohort)"
+#   end
+# end
+
+
 def print(students)
   students = students.each_with_index do |student, index|
-     puts "#{index + 1}.#{student[:name]} (#{student[:cohort]} cohort)"
-  end
+  	if (student[:name])[0] == "D" || (student[:name])[0] == "d"# only print students whos names begin with "D" or "d"
+  		puts "#{index + 1}.#{student[:name]} (#{student[:cohort]} cohort)"
+  		end
+  	end
 end
 
 def print_footer(names)
