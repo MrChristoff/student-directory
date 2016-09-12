@@ -32,9 +32,17 @@ end
 # end
 
 
+# def print(students)
+#   students = students.each_with_index do |student, index|
+#   	if (student[:name])[0] == "D" || (student[:name])[0] == "d"# only print students whos names begin with "D" or "d"
+#   		puts "#{index + 1}.#{student[:name]} (#{student[:cohort]} cohort)"
+#   		end
+#   	end
+# end
+
 def print(students)
   students = students.each_with_index do |student, index|
-  	if (student[:name])[0] == "D" || (student[:name])[0] == "d"# only print students whos names begin with "D" or "d"
+  	if (student[:name]).length < 12 # only print students who's names are shorter than 12 characters
   		puts "#{index + 1}.#{student[:name]} (#{student[:cohort]} cohort)"
   		end
   	end
