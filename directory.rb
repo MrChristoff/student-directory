@@ -21,8 +21,8 @@ end
 
 
 def print_header
-  puts "The students of Villans Academy"
-  puts "_____________"
+  puts "The students of Villans Academy".center(100)
+  puts "_____________".center(100)
 end
 
 
@@ -54,14 +54,14 @@ def print_without_each(arr)
   until n == arr.length
     student = arr[n]
     # puts "#{arr.index[element]} #{element}"
-    puts "#{n + 1}.#{student[:name]} (#{student[:cohort]} cohort) hobby: #{student[:hobbies]}"
+    puts "#{n + 1}.#{student[:name]} (#{student[:cohort]} cohort) hobby: #{student[:hobbies]}".center(100)
     n += 1
   end
 end
 
 def print_footer(names)
 	names.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
-  puts "Overall, we have #{names.count} great #{plural_or_single} "
+  puts "Overall, we have #{names.count} great #{plural_or_single} ".center(100)
 end
 
 # nothing happens until we call the mothods
