@@ -1,5 +1,7 @@
 # let's put the students into an array
-students = [
+
+#  students =
+		 [
   {name: "Dr. Hannibal Lecter", cohort: :november},
   {name: "Darth Vader", cohort: :novembers},
   {name: "Nurse Ratched", cohort: :novembe},
@@ -12,6 +14,27 @@ students = [
   {name: "Joffrey Baratheon", cohort: :november},
   {name: "Norman Bates", cohort: :november}
 ]
+
+def input_students
+  puts "Please enter the name of the students"
+  puts "To finish, just hit return twice"
+  # creates an empty array
+  students = []
+  # gets the first students name
+  name = gets.chomp
+  # while the name is not empty, repeat this code:
+  while !name.empty? do
+    # add the student hash to the array
+    studnets << {name: name, cohort: :november} 
+    puts "Now we have #{students.count} students"
+    # get another name from the user
+    name = gets.chomp
+  end
+  # return the array of students
+  students
+end
+
+
 def print_header
   puts "The students of Villans Academy"
   puts "_____________"
@@ -28,6 +51,7 @@ def print_footer(names)
 end
 
 # nothing happens until we call the mothods
+students = input_students
 print_header
 print(students)
 print_footer(students)
