@@ -1,4 +1,5 @@
 @students = []
+
 def interactive_menu
  # @students = []
   loop do 
@@ -15,6 +16,8 @@ def process(selection)
       show_students
   	when "3"
   	  save_students
+  	when "4"
+  	  load_students
     when "9"
       exit #terminate program
     else
@@ -27,9 +30,10 @@ def print_menu
 	puts "Villans Academy Student Entry System".center(100)
 	puts "\n"
 	puts "1. Input the students".center(100)
-    puts "2. Show the students".center(100)
-    puts "3. Save student list to 'students.csv' ".center(100)
-    puts "9. Exit".center(100)
+  puts "2. Show the students".center(100)
+  puts "3. Save student list to 'students.csv'".center(100)
+  puts "4. Load the list from 'students.csv'".center(100)
+  puts "9. Exit".center(100)
 end
 
 def save_students
@@ -42,6 +46,15 @@ def save_students
 	  csv_line = student_data.join(",") 
 	  file.puts csv_line
 	end
+  file.close
+end
+
+def load_students
+  file = File.open("students.csv", "r")
+  file.readlines.each do |line| 
+  name, cohort = line.chomp.split(',')
+    @students << {Name: name, Cohort: cohort.to_sym}
+  end
   file.close
 end
 
