@@ -60,7 +60,7 @@ def input_students_with_ammend
     students << student_template
     student = students[-1]
     # check informatin is correct
-    puts "\nPlease check this information is correct:"#.center(100)
+    puts "Please check this information is correct:"#.center(100)
     puts ""
     puts "#{student[:Name]} (#{student[:Cohort]} Cohort) Hobby: #{student[:Hobbie]}, Gender: #{student[:Gender]}.\n"#.center(100)
     puts ""
@@ -118,6 +118,10 @@ def print_without_each(arr) # print without using the 'each' method, and use loo
   end
 end
 
+def print_by_cohort(student_arr)
+  puts student_arr.group_by {|student| student[:Cohort]}.sort
+end
+
 def print_footer(names)
 	names.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
   puts "Overall, we have #{names.count} great #{plural_or_single} ".center(100)
@@ -130,3 +134,4 @@ students = input_students_with_ammend
 print_header
 print_without_each(students)
 print_footer(students)
+print_by_cohort(students)
