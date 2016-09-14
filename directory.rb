@@ -27,7 +27,7 @@ def process(selection)
       when "3"
         save_students
         when "4"
-          try_load_students
+          load_students
           when "9"
             exit
             else
@@ -72,7 +72,6 @@ def plural_or_single
   @students.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
 end
 
-
 def show_students
   print_header
   print_without_each
@@ -107,12 +106,11 @@ def save_students
     file.puts csv_line
   end
   file.close
+  puts "File saved as with #{@students.count} #{plural_or_single}".center(100)
 end
 
 def try_load_students
-  #ARGV.empty? ? (filename = "students.csv"):(filename = ARGV.first)
-  ARGV.empty? ? (load_students("students.csv")):(filename = ARGV.first)
-
+  ARGV.empty? ? (load_students):(filename = ARGV.first)
   return if filename.nil?
   if File.exists?(filename)
     load_students(filename)
@@ -123,13 +121,16 @@ def try_load_students
   end
 end
 
+
+
 def load_students(filename = "students.csv")
-  file = File.open("students.csv", "r")
+  file = File.open("students.csv", "a+")
   file.readlines.each do |line| 
   name, cohort = line.chomp.split(',')
     @students << {Name: name, Cohort: cohort.to_sym}
   end
   file.close
+  print_footer
 end
 
 def print_student_list#(students)
@@ -138,7 +139,6 @@ def print_student_list#(students)
       puts "#{index + 1}.#{student[:Name]} (#{student[:Cohort]} Cohort)".center(100)
   end
 end
-
 
 def print_students_begining_with# only print students whos names begin with "D" or "d"
   @students.each_with_index do |student, index|
@@ -162,6 +162,4 @@ end
 
 #  nothing happens until we call the mothods
 try_load_students
-
-
 interactive_menu
