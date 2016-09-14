@@ -159,5 +159,5 @@ def print_by_cohort
   puts @students.group_by {|student| student[:cohort]}.sort
 end
 
-# nothing happens until we call the mothods
+#  nothing happens until we call the mothods
 interactive_menu
