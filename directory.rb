@@ -62,7 +62,7 @@ def student_entry_check
   student = @students[-1]
   puts "Please check this information is correct:"
   puts ""
-  puts "#{student[:Name]} (#{student[:Cohort]} Cohort) Campus: #{student[:Campus]}, Age: #{student[:Age]}.\n"#.center(100)
+  puts "#{student[:Name]} (#{student[:Cohort]} Cohort) Campus: #{student[:Campus]}, Age: #{student[:Age]}.\n"
   puts ""
   puts "would you like to delete the student and data?"
   puts "Type 'R' to remove student data or any key to continue"
@@ -103,19 +103,34 @@ def print_footer
   puts "\n"
 end
 
+# def save_students
+#   file_selection if @file_to_use == ""
+ 
+#   file = File.open(@file_to_use, "w")
+#   @students.each do |student|
+#     student_data = [student[:Name], student[:Cohort], student[:Campus], student[:Age]]
+#     csv_line = student_data.join(",") 
+#     file.puts csv_line
+#   end
+#   file.close
+#   puts "#{@file_to_use} saved with #{@students.count} #{plural_or_single}".center(100)
+#    @file_to_use = "" # so file selection is prompted after adding new students
+# end
+
 def save_students
   file_selection if @file_to_use == ""
- 
-  file = File.open(@file_to_use, "w")
-  @students.each do |student|
-    student_data = [student[:Name], student[:Cohort], student[:Campus], student[:Age]]
-    csv_line = student_data.join(",") 
-    file.puts csv_line
+
+  File.open(@file_to_use, "w") do |file|
+    @students.each do |student|
+      student_data = [student[:Name], student[:Cohort], student[:Campus], student[:Age]]
+      csv_line = student_data.join(",") 
+      file.puts csv_line
+    end
   end
-  file.close
   puts "#{@file_to_use} saved with #{@students.count} #{plural_or_single}".center(100)
-   @file_to_use = "" # so file selection is prompted after adding new students
+  @file_to_use = "" # so file selection is prompted after adding new students
 end
+
 
 # def try_load_students
 #   ARGV.empty? ? (load_students):(filename = ARGV.first)
@@ -167,12 +182,13 @@ end
 def load_students
   file_selection if @file_to_use == ""
 
-  file = File.open(@file_to_use, "a+")
-  file.readlines.each do |line| 
-  name, cohort, campus, age = line.chomp.split(',')
-    @students << {Name: name, Cohort: cohort.to_sym, Campus: campus.to_sym, Age: age}
+  File.open(@file_to_use, "a+") do |file|
+    file.readlines.each do |line|
+      name, cohort, campus, age = line.chomp.split(',')
+      @students << {Name: name, Cohort: cohort.to_sym, Campus: campus.to_sym, Age: age}
     end
-  file.close
+  end
+
   print_footer
   @file_to_use = "" # so file selection is prompted after adding new students
 end
