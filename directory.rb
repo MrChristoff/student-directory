@@ -110,7 +110,8 @@ def save_students
 end
 
 def try_load_students
-  ARGV.empty? ? (filename = "students.csv"):(filename = ARGV.first)
+  #ARGV.empty? ? (filename = "students.csv"):(filename = ARGV.first)
+  ARGV.empty? ? (load_students("students.csv")):(filename = ARGV.first)
 
   return if filename.nil?
   if File.exists?(filename)
@@ -160,4 +161,7 @@ def print_by_cohort
 end
 
 #  nothing happens until we call the mothods
+try_load_students
+
+
 interactive_menu
