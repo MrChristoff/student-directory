@@ -4,7 +4,7 @@ def interactive_menu
  # @students = []
   loop do 
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
    end
 end
 
@@ -17,7 +17,7 @@ def process(selection)
   	when "3"
   	  save_students
   	when "4"
-  	  load_students
+  	  try_load_students
     when "9"
       exit #terminate program
     else
@@ -49,7 +49,7 @@ def save_students
   file.close
 end
 
-def load_students
+def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line| 
   name, cohort = line.chomp.split(',')
@@ -57,6 +57,19 @@ def load_students
   end
   file.close
 end
+
+def try_load_students
+  filename = ARGV.first # first arg from cmd line
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+     puts "Loaded #{@students.count} from #{filename}."
+  else
+    puts "Sorry, #{filename} does not exist."
+    exit
+  end
+end
+
 
 def show_students
 	print_header
@@ -72,8 +85,8 @@ def input_students_non_iteractive
   puts "To finish, just hit return twice"
   # creates an empty array
   #students = []
-  # gets the first students name
-  name = gets[0...-1]
+  # STDIN.gets the first students name
+  name = STDIN.gets[0...-1]
   # while the name is not empty, repeat this code:
   while !name.empty? do
     # add the student hash to the array
@@ -81,7 +94,7 @@ def input_students_non_iteractive
     students.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
     puts "Now we have #{students.count} #{plural_or_single}"
     # get another name from the user
-    name = gets[0...-1]
+    name = STDIN.gets[0...-1]
   end
   # return the array of students
   @students
@@ -96,7 +109,7 @@ def input_students_interactive
     student_template = {Name: "To be confirmed", Cohort: :November, Hobbie: "To be confirmed", Gender: "To be confirmed"} 
     student_template.each do |key, value| # itterates the 'template' hash assigning the new value to the key selected
       puts "Please enter a #{key}"
-      new_value = gets.chomp.capitalize.to_sym
+      new_value = STDIN.gets.chomp.capitalize.to_sym
       student_template[key] = new_value if new_value != :""
     end
 
@@ -104,7 +117,7 @@ def input_students_interactive
     @students.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
     puts "Now we have #{students.count} #{plural_or_single}"
     puts "continue to add students? Y/N"
-    gets.chomp.upcase == "Y" ? continue = true : continue = false
+    STDIN.gets.chomp.upcase == "Y" ? continue = true : continue = false
 
   end
   # return the array of students
@@ -120,7 +133,7 @@ def input_students_with_ammend
     student_template = {Name: "To be confirmed", Cohort: :November, Hobbie: "To be confirmed", Gender: "To be confirmed"} 
     student_template.each do |key, value| # itterates the 'template' hash assigning the new value to the key selected
       puts "Please enter a #{key}"
-      new_value = gets.chomp.capitalize.to_sym
+      new_value = STDIN.gets.chomp.capitalize.to_sym
       student_template[key] = new_value if new_value != :""
     end
     # add template to student array
@@ -133,14 +146,14 @@ def input_students_with_ammend
     puts ""
     puts "would you like to delete the student and data?"
     puts "Type 'R' to remove student data or any key to continue"
-    answer = gets.chomp.capitalize
+    answer = STDIN.gets.chomp.capitalize
     @students.pop if answer == "R" 
 
 
     @students.count == 1 ? plural_or_single = "student" : plural_or_single = "students"
     puts "Now we have #{@students.count} #{plural_or_single}"
     puts "continue to add students? Y/N"
-    gets.chomp.upcase == "Y" ? continue = true : continue = false
+    STDIN.gets.chomp.upcase == "Y" ? continue = true : continue = false
 
   end
   # return the array of students
