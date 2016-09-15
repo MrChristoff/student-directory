@@ -1,3 +1,5 @@
+require 'csv'
+
 @students = []
 @file_to_use = ""
 
@@ -27,7 +29,7 @@ def process(selection)
     when "2"
       show_students
       when "3"
-        save_students
+        save_students_csv
         when "4"
           load_students
           when "9"
@@ -103,20 +105,6 @@ def print_footer
   puts "\n"
 end
 
-# def save_students
-#   file_selection if @file_to_use == ""
- 
-#   file = File.open(@file_to_use, "w")
-#   @students.each do |student|
-#     student_data = [student[:Name], student[:Cohort], student[:Campus], student[:Age]]
-#     csv_line = student_data.join(",") 
-#     file.puts csv_line
-#   end
-#   file.close
-#   puts "#{@file_to_use} saved with #{@students.count} #{plural_or_single}".center(100)
-#    @file_to_use = "" # so file selection is prompted after adding new students
-# end
-
 def save_students
   file_selection if @file_to_use == ""
 
@@ -131,6 +119,18 @@ def save_students
   @file_to_use = "" # so file selection is prompted after adding new students
 end
 
+def save_students_csv
+  file_selection if @file_to_use == ""
+
+  CSV.open(@file_to_use, "wb") do |csv|
+    csv <<  @students.first.keys # adds the attributes name on the first line
+    @students.each do |hash|
+      csv << hash.values
+    end
+  end
+  puts "#{@file_to_use} saved with #{@students.count} #{plural_or_single}".center(100)
+  @file_to_use = "" # so file selection is prompted after adding new students
+end
 
 # def try_load_students
 #   ARGV.empty? ? (load_students):(filename = ARGV.first)
